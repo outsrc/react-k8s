@@ -36,10 +36,17 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "test": "jest"
+    "test": "jest",
+    "lint": "standard",
+    "format": "prettier-standard --format"
   },
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node"
+  },
+  "standard": {
+    "ignore": [
+      "/build/"
+    ]
   }
 }
