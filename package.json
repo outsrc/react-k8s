@@ -15,14 +15,23 @@
     "react-dom": "^16.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.4",
+    "@storybook/addon-viewport": "^5.2.8",
+    "@storybook/preset-typescript": "^1.1.0",
+    "@storybook/react": "^5.2.8",
     "@types/jest": "^24.0.23",
     "@types/react": "^16.9.14",
     "@types/react-dom": "^16.9.4",
     "@types/react-test-renderer": "^16.9.1",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.6",
+    "fela-plugin-typescript": "^11.0.2",
     "jest": "^24.9.0",
     "prettier-standard": "^16.1.0",
     "react": "^16.12.0",
+    "react-docgen-typescript-loader": "^3.6.0",
     "react-dom": "^16.12.0",
+    "react-fela": "^11.0.2",
     "react-scripts-ts": "^3.1.0",
     "react-test-renderer": "^16.12.0",
     "rollup": "^1.27.8",
@@ -38,7 +47,8 @@
     "build": "rollup -c",
     "test": "jest",
     "lint": "standard",
-    "format": "prettier-standard --format"
+    "format": "prettier-standard --format",
+    "storybook": "start-storybook"
   },
   "jest": {
     "preset": "ts-jest",
