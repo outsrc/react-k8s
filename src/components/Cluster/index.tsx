@@ -1,8 +1,9 @@
 import * as React from 'react'
 import Panel from '../Panel'
+import { CLUSTER } from './styles'
 
 interface ClusterProps {
-  children: React.ReactNode
+  children?: React.ReactNode
 }
 
 interface ClusterContextProps {
@@ -19,7 +20,7 @@ const Namespace: React.FunctionComponent<ClusterProps> = ({ children }) => {
 
   return (
     <ClusterContext.Provider value={{ emitResource }}>
-      <Panel bottomLeftName='cluster'>{children}</Panel>
+      <Panel panelStyles={CLUSTER}>{children}</Panel>
     </ClusterContext.Provider>
   )
 }

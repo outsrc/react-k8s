@@ -58,5 +58,9 @@
     "ignore": [
       "/build/"
     ]
+  },
+  "dependencies": {
+    "@types/ramda": "^0.26.37",
+    "ramda": "^0.26.1"
   }
 }

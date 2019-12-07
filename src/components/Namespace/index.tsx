@@ -1,11 +1,12 @@
 import * as React from 'react'
 import { ClusterContext } from '../Cluster'
 import Panel from '../Panel'
-import { NAMESPACE } from './styles'
+import { INNER, NAMESPACE } from './styles'
+import ResourceLabel from '../ResourceLabel'
 
 interface NamespaceProps {
   name: string
-  children: React.ReactNode
+  children?: React.ReactNode
 }
 
 export const NamespaceContext = React.createContext<string>('')
@@ -29,7 +30,11 @@ const Namespace: React.FunctionComponent<NamespaceProps> = ({
 
   return (
     <NamespaceContext.Provider value={name}>
-      <Panel bottomLeftName={`NS: ${name}`} panelStyles={NAMESPACE}>
+      <Panel
+        bottomLeftName={<ResourceLabel resource='Namespace' name={name} />}
+        panelStyles={NAMESPACE}
+        innerPanelStyles={INNER}
+      >
         {children}
       </Panel>
     </NamespaceContext.Provider>

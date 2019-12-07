@@ -9,6 +9,6 @@ interface Props {}
 
 export const emptyCluster: React.FunctionComponent<Props> = () => (
   <Provider renderer={renderer}>
-    <Cluster>This is an empty cluster</Cluster>
+    <Cluster></Cluster>
   </Provider>
 )
