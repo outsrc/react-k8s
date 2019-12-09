@@ -1,6 +1,6 @@
 {
   "name": "react-k8s",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "React Kubernetes Components",
   "main": "build/index.js",
   "module": "build/index.es.js",
