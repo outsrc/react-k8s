@@ -26,3 +26,5 @@ $ yarn install
 
 $ yarn storybook
 ``` 
+
+![Screenshot](react-k8s-storybook.png)
