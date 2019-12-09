@@ -29,7 +29,7 @@ const WithPanels: React.FunctionComponent<WithPanelsProps> = ({
 export const withOneNamespace: React.FunctionComponent<Props> = () => (
   <Provider renderer={renderer}>
     <Cluster>
-      <Namespace name='outsrc'>
+      <Namespace namespace={{ name: 'outsrc' }}>
         <WithPanels color='orange' />
       </Namespace>
     </Cluster>
@@ -39,10 +39,10 @@ export const withOneNamespace: React.FunctionComponent<Props> = () => (
 export const witTwoNamespaces: React.FunctionComponent<Props> = () => (
   <Provider renderer={renderer}>
     <Cluster>
-      <Namespace name='outsrc'>
+      <Namespace namespace={{ name: 'outsrc' }}>
         <WithPanels color='red' />
       </Namespace>
-      <Namespace name='kong'>
+      <Namespace namespace={{ name: 'kong' }}>
         <WithPanels panels={6} color='green' />
       </Namespace>
     </Cluster>
@@ -52,13 +52,13 @@ export const witTwoNamespaces: React.FunctionComponent<Props> = () => (
 export const withThreeNamespaces: React.FunctionComponent<Props> = () => (
   <Provider renderer={renderer}>
     <Cluster>
-      <Namespace name='oursrc'>
+      <Namespace namespace={{ name: 'oursrc' }}>
         <WithPanels color='red' />
       </Namespace>
-      <Namespace name='kong'>
+      <Namespace namespace={{ name: 'kong' }}>
         <WithPanels color='orange' panels={5} />
       </Namespace>
-      <Namespace name='cert-manager'>
+      <Namespace namespace={{ name: 'cert-manager' }}>
         <WithPanels color='green' panels={8} />
       </Namespace>
     </Cluster>

@@ -14,20 +14,22 @@ interface PanelProps {
   children?: React.ReactNode
   panelStyles?: IStyle
   innerPanelStyles?: IStyle
+  contentStyles?: IStyle
 }
 
 const Panel: React.FunctionComponent<PanelProps> = ({
   bottomLeftName,
   children,
   panelStyles,
-  innerPanelStyles
+  innerPanelStyles,
+  contentStyles
 }) => {
   const { css } = useFela()
 
   return (
     <div className={css(PANEL, panelStyles || {})}>
       <div className={css(INTERNAL, innerPanelStyles || {})}>
-        <div className={css(CONTENT)}>{children}</div>
+        <div className={css(CONTENT, contentStyles || {})}>{children}</div>
         {bottomLeftName && (
           <div className={css(BOTTOM_ROW)}>
             {bottomLeftName && (

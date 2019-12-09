@@ -13,7 +13,7 @@ export const INTERNAL: IStyle = {
   flexDirection: 'column',
   margin: '5px',
   borderRadius: '4px',
-  flexGrow: 1
+  flexGrow: 0
 }
 
 export const BOTTOM_ROW: IStyle = {

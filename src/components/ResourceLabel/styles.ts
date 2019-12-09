@@ -1,7 +1,7 @@
 export const RESOURCE = {
   fontSize: '12px',
   color: '#000',
-  fontWeight: 300,
+  fontWeight: 200,
   fontFamily: 'sans-serif'
 }
 

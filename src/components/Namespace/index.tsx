@@ -3,35 +3,40 @@ import { ClusterContext } from '../Cluster'
 import Panel from '../Panel'
 import { INNER, NAMESPACE } from './styles'
 import ResourceLabel from '../ResourceLabel'
+import { INamespace } from '../../helpers'
 
 interface NamespaceProps {
-  name: string
+  namespace: INamespace
   children?: React.ReactNode
 }
 
-export const NamespaceContext = React.createContext<string>('')
+export const NamespaceContext = React.createContext<INamespace | null>(null)
 
-const createNamespaceResource = (name: string): string => `apiVersion: "v1"
+const createNamespaceResource = (
+  namespace: INamespace
+): string => `apiVersion: "v1"
 kind: "Namespace"
 metadata:
-  name: "${name}"`
+  name: "${namespace.name}"`
 
 const Namespace: React.FunctionComponent<NamespaceProps> = ({
-  name,
+  namespace,
   children
 }) => {
   const clusterContext = React.useContext(ClusterContext)
   React.useEffect(() => {
     clusterContext?.emitResource(
-      `namespace-${name}.yml`,
-      createNamespaceResource(name)
+      `namespace-${namespace.name}.yml`,
+      createNamespaceResource(namespace)
     )
-  }, [name])
+  }, [namespace])
 
   return (
-    <NamespaceContext.Provider value={name}>
+    <NamespaceContext.Provider value={namespace}>
       <Panel
-        bottomLeftName={<ResourceLabel resource='Namespace' name={name} />}
+        bottomLeftName={
+          <ResourceLabel resource='Namespace' name={namespace.name} />
+        }
         panelStyles={NAMESPACE}
         innerPanelStyles={INNER}
       >
