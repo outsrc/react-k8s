@@ -1,8 +1,9 @@
 import { IStyle } from 'fela'
 
 export const INNER: IStyle = {
-  border: 'solid 1px #E8E8E8',
-  backgroundColor: '#f8f8f8'
+  border: 'solid 2px #999',
+  borderRadius: '6px',
+  backgroundColor: '#fbfbfb'
 }
 
 export const INGRESS: IStyle = {
@@ -11,14 +12,19 @@ export const INGRESS: IStyle = {
   flexBasis: '100%'
 }
 
+export const INGRESS_TEXT: IStyle = {
+  fontSize: '18px',
+  color: '#888'
+}
+
 export const CONTENT: IStyle = {
   padding: 0
 }
 
 export const HOSTS: IStyle = {
   fontFamily: '"Roboto", sans-serif',
-  color: '#000',
-  fontSize: '24px',
+  color: '#888',
+  fontSize: '36px',
   fontWeight: 200,
   borderTopLeftRadius: '3px'
 }
@@ -58,7 +64,8 @@ export const PATH_LEFT: IStyle = {
   flexDirection: 'column',
   flexBasis: '30%',
   flexShrink: 0,
-  fontSize: '22px',
+  color: '#888',
+  fontSize: '30px',
   fontFamily: '"Roboto", sans-serif',
   fontWeight: 200
 }

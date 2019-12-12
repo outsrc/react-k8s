@@ -24,12 +24,26 @@ export const BOTTOM_ROW: IStyle = {
 }
 
 export const LEFT_BOTTOM_AREA: IStyle = {
+  display: 'flex',
+  flexGrow: 1,
+  flexShrink: 0,
+  fontSize: '12px',
+  paddingLeft: '6px',
+  paddingRight: '6px',
+  paddingTop: '3px',
+  paddingBottom: '3px'
+}
+
+export const RIGHT_BOTTOM_AREA: IStyle = {
+  display: 'flex',
+  flexGrow: 1,
+  flexShrink: 0,
   fontSize: '12px',
   paddingLeft: '6px',
   paddingRight: '6px',
   paddingTop: '3px',
   paddingBottom: '3px',
-  color: ''
+  justifyContent: 'flex-end'
 }
 
 export const CONTENT: IStyle = {

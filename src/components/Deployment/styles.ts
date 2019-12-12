@@ -15,6 +15,11 @@ export const DEPLOYMENT: IStyle = {
   flexBasis: '100%'
 }
 
+export const DEPLOYMENT_TEXT: IStyle = {
+  fontSize: '16px',
+  color: '#888'
+}
+
 export const LEFT: IStyle = {
   display: 'flex',
   flexDirection: 'column',
@@ -30,14 +35,15 @@ export const RIGHT: IStyle = {
 }
 
 export const REPLICAS: IStyle = {
-  fontSize: '21px',
-  color: '#303030',
+  fontSize: '32px',
+  color: '#888',
   fontFamily: '"Roboto", sans-serif'
 }
 
 export const IMAGE_NAME: IStyle = {
-  fontSize: '16px',
-  color: '#303030',
+  fontSize: '24px',
+  fontWeight: 200,
+  color: '#888',
   fontFamily: '"Roboto", sans-serif'
 }
 

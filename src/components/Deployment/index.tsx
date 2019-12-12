@@ -15,13 +15,15 @@ import {
   ENV_TABLE,
   PORT_TEXT,
   PORT,
-  CONTENT
+  CONTENT,
+  DEPLOYMENT_TEXT
 } from './styles'
 import ResourceLabel from '../ResourceLabel'
 import { NamespaceContext } from '../Namespace'
 import { IDeployment, INamespace } from '../../helpers'
 import { useFela } from 'react-fela'
 import Label from '../Label'
+import DownloadResourceButton from '../DownloadResourceButton'
 
 const createDeploymentResource = (
   deployment: IDeployment,
@@ -60,7 +62,14 @@ const Deployment: React.FunctionComponent<IDeployment> = deployment => {
 
   return (
     <Panel
-      bottomLeftName={<ResourceLabel resource='Deployment' name={name} />}
+      bottomLeftName={
+        <ResourceLabel
+          textStyle={DEPLOYMENT_TEXT}
+          resource='Deployment'
+          name={name}
+        />
+      }
+      bottomRightName={<DownloadResourceButton />}
       panelStyles={DEPLOYMENT}
       innerPanelStyles={INNER}
       contentStyles={CONTENT}

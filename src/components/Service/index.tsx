@@ -2,12 +2,12 @@ import * as React from 'react'
 import { IService } from '../../helpers'
 import { useFela } from 'react-fela'
 import Panel from '../Panel'
-import ResourceLabel from '../ResourceLabel'
+// import ResourceLabel from '../ResourceLabel'
 import Deployment from '../Deployment'
 import { CONTENT, INNER, PORT, SERVICE } from './styles'
+import DownloadResourceButton from '../DownloadResourceButton'
 
 const Service: React.FunctionComponent<IService> = ({
-  name,
   deployment,
   port,
   protocol
@@ -19,7 +19,7 @@ const Service: React.FunctionComponent<IService> = ({
       panelStyles={SERVICE}
       innerPanelStyles={INNER}
       contentStyles={CONTENT}
-      bottomLeftName={<ResourceLabel resource={'Service'} name={name} />}
+      bottomRightName={<DownloadResourceButton />}
     >
       <div className={css(PORT)}>
         {port}/{protocol}

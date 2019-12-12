@@ -9,6 +9,7 @@ import {
   ANNOTATIONS,
   HOSTS,
   INGRESS,
+  INGRESS_TEXT,
   INNER,
   PATH,
   PATH_LEFT,
@@ -17,6 +18,7 @@ import {
 } from './styles'
 import Label from '../Label'
 import Service from '../Service'
+import DownloadResourceButton from '../DownloadResourceButton'
 
 const Ingress: React.FunctionComponent<IIngress> = ({
   name,
@@ -30,7 +32,14 @@ const Ingress: React.FunctionComponent<IIngress> = ({
     <Panel
       panelStyles={INGRESS}
       innerPanelStyles={INNER}
-      bottomLeftName={<ResourceLabel resource={'Ingress'} name={name} />}
+      bottomLeftName={
+        <ResourceLabel
+          textStyle={INGRESS_TEXT}
+          resource={'Ingress'}
+          name={name}
+        />
+      }
+      bottomRightName={<DownloadResourceButton />}
     >
       <div className={css(HOSTS)}>{hosts.join(', ')}</div>
       <div className={css(ANNOTATIONS)}>

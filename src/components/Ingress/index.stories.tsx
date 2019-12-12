@@ -38,6 +38,15 @@ const frontend: IDeployment = {
   replicas: 2
 }
 
+const codexswFrontend: IDeployment = {
+  name: 'front-deployment',
+  image: 'gcr.io/codexsw/codexsw-front:0.1.0',
+  env: [{ key: 'PORT', value: '3000' }],
+  labels: [{ key: 'service', value: 'front' }],
+  port: 3000,
+  replicas: 1
+}
+
 const backendService: IService = {
   name: 'back-service',
   deployment: backend,
@@ -48,6 +57,13 @@ const backendService: IService = {
 const frontendService: IService = {
   name: 'front-service',
   deployment: frontend,
+  port: 3000,
+  protocol: 'TCP'
+}
+
+const codexswFrontendService: IService = {
+  name: 'front-service',
+  deployment: codexswFrontend,
   port: 3000,
   protocol: 'TCP'
 }
@@ -66,11 +82,35 @@ const ingress: IIngress = {
   ]
 }
 
+const codexswIngress: IIngress = {
+  name: 'codexsw-com-ingress',
+  hosts: ['codexsw.com'],
+  annotations: [
+    { key: 'kubernetes.io/ingress.class', value: 'kong' },
+    { key: 'kubernetes.io/tls-acme', value: 'true' },
+    { key: 'cert-manager.io/cluster-issuer', value: 'letsencrypt-prod' }
+  ],
+  paths: [{ backend: codexswFrontendService, path: '/', port: 3000 }]
+}
+
 export const singleDeployment: React.FunctionComponent<Props> = () => (
   <Provider renderer={renderer}>
     <Cluster>
       <Namespace namespace={{ name: 'outsrc' }}>
         <Ingress {...ingress} />
+      </Namespace>
+    </Cluster>
+  </Provider>
+)
+
+export const multiDeployment: React.FunctionComponent<Props> = () => (
+  <Provider renderer={renderer}>
+    <Cluster>
+      <Namespace namespace={{ name: 'outsrc' }}>
+        <Ingress {...ingress} />
+      </Namespace>
+      <Namespace namespace={{ name: 'codexsw' }}>
+        <Ingress {...codexswIngress} />
       </Namespace>
     </Cluster>
   </Provider>

@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { ClusterContext } from '../Cluster'
 import Panel from '../Panel'
-import { INNER, NAMESPACE } from './styles'
+import { INNER, NAMESPACE, TEXT } from './styles'
 import ResourceLabel from '../ResourceLabel'
 import { INamespace } from '../../helpers'
+import DownloadResourceButton from '../DownloadResourceButton'
 
 interface NamespaceProps {
   namespace: INamespace
@@ -35,8 +36,13 @@ const Namespace: React.FunctionComponent<NamespaceProps> = ({
     <NamespaceContext.Provider value={namespace}>
       <Panel
         bottomLeftName={
-          <ResourceLabel resource='Namespace' name={namespace.name} />
+          <ResourceLabel
+            textStyle={TEXT}
+            resource='Namespace'
+            name={namespace.name}
+          />
         }
+        bottomRightName={<DownloadResourceButton />}
         panelStyles={NAMESPACE}
         innerPanelStyles={INNER}
       >
