@@ -11,10 +11,10 @@ export default { title: 'Ingress' }
 interface Props {}
 
 const backend: IDeployment = {
-  name: 'back-deployment',
+  name: 'backend',
   image: 'gcr.io/outsrc/outsrc-back:1.0.0',
   env: [
-    { key: 'PORT', value: '3000' },
+    { key: 'PORT', value: '3000', from: 'literal' },
     { key: 'JWT_SECRET', value: 'outsrc-secrets', from: 'secretKeyRef' }
   ],
   labels: [
@@ -27,11 +27,11 @@ const backend: IDeployment = {
 }
 
 const frontend: IDeployment = {
-  name: 'front-deployment',
+  name: 'frontend',
   image: 'gcr.io/outsrc/outsrc-front:1.0.0',
   env: [
-    { key: 'API_URL', value: 'https://outsrc.dev/api' },
-    { key: 'PORT', value: '3000' }
+    { key: 'API_URL', value: 'https://outsrc.dev/api', from: 'literal' },
+    { key: 'PORT', value: '3000', from: 'literal' }
   ],
   labels: [{ key: 'service', value: 'front' }],
   port: 3000,
@@ -39,42 +39,39 @@ const frontend: IDeployment = {
 }
 
 const codexswFrontend: IDeployment = {
-  name: 'front-deployment',
-  image: 'gcr.io/codexsw/codexsw-front:0.1.0',
-  env: [{ key: 'PORT', value: '3000' }],
+  name: 'frontend',
+  image: 'gcr.io/outsrc/codexsw-app:1.0.0',
+  env: [{ key: 'PORT', value: '3000', from: 'literal' }],
   labels: [{ key: 'service', value: 'front' }],
   port: 3000,
   replicas: 1
 }
 
 const backendService: IService = {
-  name: 'back-service',
   deployment: backend,
   port: 3000,
   protocol: 'TCP'
 }
 
 const frontendService: IService = {
-  name: 'front-service',
   deployment: frontend,
   port: 3000,
   protocol: 'TCP'
 }
 
 const codexswFrontendService: IService = {
-  name: 'front-service',
   deployment: codexswFrontend,
   port: 3000,
   protocol: 'TCP'
 }
 
 const ingress: IIngress = {
-  name: 'outsrc-dev-ingress',
+  name: 'outsrc-dev',
   hosts: ['outsrc.dev'],
   annotations: [
     { key: 'kubernetes.io/ingress.class', value: 'kong' },
     { key: 'kubernetes.io/tls-acme', value: 'true' },
-    { key: 'cert-manager.io/cluster-issuer', value: 'letsencrypt-prod' }
+    { key: 'cert-manager.io/cluster-issuer', value: 'letsencrypt-production' }
   ],
   paths: [
     { backend: backendService, path: '/api', port: 3000 },
@@ -83,12 +80,12 @@ const ingress: IIngress = {
 }
 
 const codexswIngress: IIngress = {
-  name: 'codexsw-com-ingress',
+  name: 'codexsw-com',
   hosts: ['codexsw.com'],
   annotations: [
     { key: 'kubernetes.io/ingress.class', value: 'kong' },
     { key: 'kubernetes.io/tls-acme', value: 'true' },
-    { key: 'cert-manager.io/cluster-issuer', value: 'letsencrypt-prod' }
+    { key: 'cert-manager.io/cluster-issuer', value: 'letsencrypt-production' }
   ],
   paths: [{ backend: codexswFrontendService, path: '/', port: 3000 }]
 }
@@ -96,8 +93,8 @@ const codexswIngress: IIngress = {
 export const singleDeployment: React.FunctionComponent<Props> = () => (
   <Provider renderer={renderer}>
     <Cluster>
-      <Namespace namespace={{ name: 'outsrc' }}>
-        <Ingress {...ingress} />
+      <Namespace namespace={{ name: 'codexsw' }}>
+        <Ingress {...codexswIngress} />
       </Namespace>
     </Cluster>
   </Provider>

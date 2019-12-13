@@ -17,8 +17,12 @@ export const singleDeployment: React.FunctionComponent<Props> = () => (
           name='back-deployment'
           image='gcr.io/outsrc/outsrc-back:1.0.0'
           env={[
-            { key: 'API_URL', value: 'https://outsrc.dev/api' },
-            { key: 'PORT', value: '3000' },
+            {
+              key: 'API_URL',
+              value: 'https://outsrc.dev/api',
+              from: 'literal'
+            },
+            { key: 'PORT', value: '3000', from: 'literal' },
             { key: 'JWT_SECRET', value: 'outsrc-secrets', from: 'secretKeyRef' }
           ]}
           labels={[

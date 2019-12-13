@@ -4,7 +4,6 @@ import Panel from '../Panel'
 import { INNER, NAMESPACE, TEXT } from './styles'
 import ResourceLabel from '../ResourceLabel'
 import { INamespace } from '../../helpers'
-import DownloadResourceButton from '../DownloadResourceButton'
 
 interface NamespaceProps {
   namespace: INamespace
@@ -13,12 +12,13 @@ interface NamespaceProps {
 
 export const NamespaceContext = React.createContext<INamespace | null>(null)
 
-const createNamespaceResource = (
-  namespace: INamespace
-): string => `apiVersion: "v1"
-kind: "Namespace"
-metadata:
-  name: "${namespace.name}"`
+const createNamespaceResource = (namespace: INamespace): object => ({
+  apiVersion: 'v1',
+  kind: 'Namespace',
+  metadata: {
+    name: namespace.name
+  }
+})
 
 const Namespace: React.FunctionComponent<NamespaceProps> = ({
   namespace,
@@ -27,7 +27,8 @@ const Namespace: React.FunctionComponent<NamespaceProps> = ({
   const clusterContext = React.useContext(ClusterContext)
   React.useEffect(() => {
     clusterContext?.emitResource(
-      `namespace-${namespace.name}.yml`,
+      namespace.name,
+      `namespace-${namespace.name}`,
       createNamespaceResource(namespace)
     )
   }, [namespace])
@@ -42,7 +43,6 @@ const Namespace: React.FunctionComponent<NamespaceProps> = ({
             name={namespace.name}
           />
         }
-        bottomRightName={<DownloadResourceButton />}
         panelStyles={NAMESPACE}
         innerPanelStyles={INNER}
       >

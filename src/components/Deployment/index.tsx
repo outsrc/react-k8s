@@ -20,19 +20,48 @@ import {
 } from './styles'
 import ResourceLabel from '../ResourceLabel'
 import { NamespaceContext } from '../Namespace'
-import { IDeployment, INamespace } from '../../helpers'
+import { IDeployment, INamespace, toK8sEnv, toK8sLabels } from '../../helpers'
 import { useFela } from 'react-fela'
 import Label from '../Label'
-import DownloadResourceButton from '../DownloadResourceButton'
 
 const createDeploymentResource = (
   deployment: IDeployment,
   namespace: INamespace
-): string => `apiVersion: "v1"
-kind: "Deployment"
-metadata:
-  name: "${deployment.name}"
-  namespace: "${namespace.name}"`
+): object => ({
+  apiVersion: 'apps/v1',
+  kind: 'Deployment',
+  metadata: {
+    name: `deployment-${deployment.name}`,
+    namespace: namespace.name,
+    labels: toK8sLabels(deployment.labels)
+  },
+  spec: {
+    replicas: deployment.replicas,
+    selector: {
+      matchLabels: toK8sLabels(deployment.labels)
+    },
+    template: {
+      metadata: {
+        labels: toK8sLabels(deployment.labels)
+      },
+      spec: {
+        containers: [
+          {
+            name: `${deployment.name}-container`,
+            image: deployment.image,
+            imagePullPolicy: 'Always',
+            ports: [
+              {
+                containerPort: deployment.port
+              }
+            ],
+            env: deployment.env.map(toK8sEnv)
+          }
+        ]
+      }
+    }
+  }
+})
 
 const Deployment: React.FunctionComponent<IDeployment> = deployment => {
   const { name, labels, replicas, image, port, env } = deployment
@@ -45,7 +74,8 @@ const Deployment: React.FunctionComponent<IDeployment> = deployment => {
     }
 
     cluster?.emitResource(
-      `deployment-${name}.yml`,
+      namespace.name,
+      `deployment-${name}`,
       createDeploymentResource(
         {
           name,
@@ -69,7 +99,6 @@ const Deployment: React.FunctionComponent<IDeployment> = deployment => {
           name={name}
         />
       }
-      bottomRightName={<DownloadResourceButton />}
       panelStyles={DEPLOYMENT}
       innerPanelStyles={INNER}
       contentStyles={CONTENT}
